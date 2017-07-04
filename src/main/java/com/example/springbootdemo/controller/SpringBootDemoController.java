@@ -1,6 +1,7 @@
 package com.example.springbootdemo.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,12 +19,19 @@ public class SpringBootDemoController {
 	private TeamDao dao;
 
 	@RequestMapping(path="/services/teams")
-	public @ResponseBody List<Team> findAll(){
+	public @ResponseBody List<Team> findAll() {
 		return dao.findAll();
 	}
 
 	@RequestMapping(path="/services/teams/{name}")
-	public @ResponseBody Team findByName(@PathVariable String name){
+	public @ResponseBody Team findByName(@PathVariable String name) {
 		return dao.findByName(name);
+	}
+
+	// Testing thymeleaf templates
+	@RequestMapping(path="/services/welcome/{name}")
+	public String welcomePlayer(Map model, @PathVariable String name) {
+		model.put("name", name);
+		return "welcome";
 	}
 }
